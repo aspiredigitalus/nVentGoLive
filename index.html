@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Launching Soon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        .golive_screen {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Roboto', sans-serif;
+            background-image: url('../nVentGoLive/media/DALL·E_Corporate_Background.webp'); /* Ensure this path is correct */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .logo {
+            max-width: 180px;
+            margin: 0 auto 30px;
+        }
+
+        .go-live-text {
+            font-size: 4rem;
+            color: #f26423; /* Vibrant orange */
+        }
+
+        .go-live-text .word {
+            display: inline-block;
+            opacity: 1; /* Start fully visible */
+        }
+
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .time-section {
+            flex: 1;
+            background: #eee;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .notify-btn {
+            background-color: #f26423;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .notify-btn:hover {
+            background-color: #c4262e;
+        }
+    </style>
+</head>
+<body>
+    <div class="golive_screen">
+        <div class="container">
+            <img src="../nVentGoLive/media/nvent2508.png" alt="nVent Logo" class="logo">
+            <div class="go-live-text" id="goLiveText">
+                <span class="word">G</span><span class="word">O</span> <span class="word">L</span><span class="word">I</span><span class="word">V</span><span class="word">E</span>
+            </div>
+            <h1>Coming Soon</h1>
+            <p>Our exciting project is on the way. Stay tuned for the big reveal!</p>
+            <div id="countdown">
+                <div class="time-section" id="days">0 Days</div>
+                <div class="time-section" id="hours">0 Hours</div>
+                <div class="time-section" id="minutes">0 Minutes</div>
+                <div class="time-section" id="seconds">0 Seconds</div>
+            </div>
+            <button class="notify-btn" onclick="window.location.href='https://yournewplatform.com';">Visit Our New Platform</button>
+        </div>
+    </div>
+
+<script>
+    const textContainer = document.getElementById('goLiveText');
+    const letters = textContainer.querySelectorAll('.word');
+
+    function animateLetters() {
+        letters.forEach((letter, index) => {
+            setTimeout(() => {
+                // Letter "blows away"
+                letter.style.opacity = '0';
+                const x = (Math.random() - 0.5) * 100;
+                const y = (Math.random() - 0.5) * 100;
+                letter.style.transform = `translate(${x}px, ${y}px)`;
+            }, index * 100); // Staggered start
+
+            setTimeout(() => {
+                // Letter comes back
+                letter.style.opacity = '1';
+                letter.style.transform = 'translate(0px, 0px)';
+            }, 2000 + index * 100); // Each letter comes back after being blown away
+        });
+    }
+
+    // Start the animation loop
+    setInterval(animateLetters, 4000); // Restart the animation every 4 seconds
+
+    const countdown = () => {
+        const countToDate = new Date(2024, 2, 22, 10, 0, 0).getTime();
+        const now = new Date().getTime();
+        const difference = countToDate - now;
+
+        if (difference <= 0) {
+            clearInterval(countdownTimer);
+            document.getElementById('days').innerText = '0 Days';
+            document.getElementById('hours').innerText = '0 Hours';
+            document.getElementById('minutes').innerText = '0 Minutes';
+            document.getElementById('seconds').innerText = '0 Seconds';
+            // Additional actions can be added here if needed when countdown ends
+        } else {
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days + ' Days';
+            document.getElementById('hours').innerText = hours + ' Hours';
+            document.getElementById('minutes').innerText = minutes + ' Minutes';
+            document.getElementById('seconds').innerText = seconds + ' Seconds';
+        }
+    };
+
+    const countdownTimer = setInterval(countdown, 1000);
+</script>
+
